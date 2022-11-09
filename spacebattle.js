@@ -25,18 +25,29 @@ for(let i=0;i<6;i++)
     alienArray.push(alienShips);
 };
 console.log(alienArray);
-// End game function to determine if ship is still alive? 
-function endGame () {
 
-}
+//alien ships in hard code to test results
+//accuracy for alien ship higher than accuracy for ss hello world
+// let alienShipOne = {
+//     hull: 3,
+//     firepower: 2, 
+//     accuracy: .8,
+// }
+// //accuracy for hello world higher than alien ship
+// let alienShipTwo = {
+//     hull: 3,
+//     firepower: 4,
+//     accuracy: .6,
+// }
 
 function restartGame() {
     let attackOrRetreat = prompt("Would you like to attack the alien ship or retreat?", "A for attack or R for retreat");
     if (attackOrRetreat === "A" || attackOrRetreat==="a"|| attackOrRetreat==="attack") {
         confirm("You have chosen to ATTACK"); 
         attackAlienShip (ussHelloWorld, alienArray[0]);
-    } else if (attackOrRetreat === "R" || attackOrRetreat==="r" || attackOrRetreat==="retreat") {
-        confirm("You have chosen to RETREAT");
+    } //end the game by retreating
+    else if (attackOrRetreat === "R" || attackOrRetreat==="r" || attackOrRetreat==="retreat") {
+        confirm("You have chosen to RETREAT. Click OK to exit.");
     } else {
         alert("Click Start Game again")
     }
@@ -47,28 +58,26 @@ function attackAlienShip (ship1, ship2){
     if (ship1.accuracy >= ship2.accuracy) {
        //let newHull = ship2.hull -= ship1.firepower;
        // return newHull;
-       ship2.hull-=ship1.firepower;
+       //ship2.hull-=ship1.firepower;
         alert(`Direct hit! You reduced the Alien Ship's hull by ${ussHelloWorld.firepower} points. The Alien's ship's hull is now at ${ship2.hull-=ship1.firepower}`);
         //add in something that makes you attack again 
         if (ship2.hull <= 0) {
             alert("Congrats! You destroyed the Alien Ship!");
-            console.log(alienArray);
             alienArray.shift();
+            console.log(alienArray);
         //create new ship to destroy - maybe put in a loop
             alert("However, a new ship is coming in for the attack. Brace yourself!")
-            attackAlienShip (ship2, ussHelloWorld);
-            
-        }  else  {
+            attackUssHelloWord(alienArray[0], ussHelloWorld)
+        }  else{
             alert("Brace yourself, the alien ship will attack")
-            attackUssHelloWord(ship2, ussHelloWorld);
-            restartGame();
+            attackUssHelloWord(alienArray[0], ussHelloWorld);
         }
     } // Alien's ship acccuracy is higher than SS Hello world. 
     else {
         alert("You missed!");
         alert("Brace yourself, the alien ship will attack")
-        attackUssHelloWord(ship2, ship1);
-        restartGame();
+        attackUssHelloWord(alienArray[0], ussHelloWorld);
+    
     }
 } 
 
@@ -76,17 +85,27 @@ function attackAlienShip (ship1, ship2){
 
 console.log(ussHelloWorld);
 
+//needs a way to declare a loss and alien takeover
+const helloWorldHull = ussHelloWorld.hull > 0 ? true : false;
+console.log(helloWorldHull)
+
 //Alien Battle Ship Attacks
 function attackUssHelloWord (ship2, ship1) {
     if (ship2.accuracy >= ship1.accuracy) {
-        ship2.hull-=ship1.firepower;
-        alert(`You've been hit! Your hull's points are at ${ship1.hull-ship2.firepower}`);
+        alert(`You've been hit! Your hull's points are at ${ship1.hull-=ship2.firepower}`);
+        if (helloWorldHull == true) {
         restartGame();
-    } else if (ship2.accuracy < ship1) {
+        } else {
+            alert(`I"m sorry, your hull has been destroyed. The aliens will take over!`)
+        }
+    } else if (ship2.accuracy < ship1.accuracy) {
         alert(`The alien ship missed! Your hull points are at ${ship1.hull}`)
         restartGame();
     }
 }
+
+
+
 
 //Start Game
 let startGame = document.getElementById("start-game");
@@ -94,9 +113,13 @@ let startGame = document.getElementById("start-game");
 function Start(){
     console.log("Started");
     alert("The Game Has Started");
-    alert("Aliens are attacking your ship, USS Hello World!");
-    restartGame();
+    alert("Aliens are attacking your ship, the USS Hello World!");
+    restartGame()
 };
 
 startGame.addEventListener("click", Start);
+
+
+
+//when a ships go to 0, declaring a win for SS hello world
 
