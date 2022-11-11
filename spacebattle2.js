@@ -1,9 +1,9 @@
 //Create SS Hello World Ship
 class UssHelloWorld {
     constructor (hull, firepower, accuracy) {
-        this.hull = 20,
+        this.hull = 8,
         this.firepower = 5,
-        this.accuracy = .9
+        this.accuracy = .4
     }
 };
 
@@ -18,6 +18,7 @@ class AlienShip {
         this.accuracy = Math.floor((Math.random() * 3) +6 )/10
         }
     }
+
 let alienArray = [];
 //for testing
 for(let i=0;i<3;i++)
@@ -49,16 +50,13 @@ function destroyedShip () {
     alert("Congrats! You destroyed the Alien Ship!");
     alienArray.shift();
     console.log(alienArray);
+    if (alienArray.length===0){
+        alert("You win!");
+        return;
+    }
 }
 
-//win or lose 
-// function winOrLose (){
-//     if (alienArray.length===0){
-//         alert("Congrats you win!")
-//     } else if (ussHelloWorld.hull<=0){
-//         alert("I'm sorry you lost")
-//     }
-// }
+
 
 function restartGame() {
     let attackOrRetreat = prompt("Would you like to attack the alien ship or retreat?", "A for attack or R for retreat");
@@ -74,12 +72,6 @@ function restartGame() {
 ;
 
 
-//check if ship 1 can continue
-function ussHelloWorldWin (){
-    if (alienArray.length===0) {
-        alert("Congrats! You won!");
-    };
-}
 
 //USS Hello World Attacks
 function attackAlienShip (ship1, ship2){
@@ -91,17 +83,16 @@ function attackAlienShip (ship1, ship2){
         //add in something that makes you attack again 
         if (ship2.hull <= 0) {
             destroyedShip();
-            ussHelloWorldWin();
         //this is where things get weird
         //create new ship to destroy - maybe put in a loop
-            alert("However, a new ship is coming in for the attack. Brace yourself!")
+            //alert("However, a new ship is coming in for the attack. Brace yourself!")
             attackUssHelloWorld(alienArray[0], ussHelloWorld)
         }  else{
             alert("Brace yourself, the alien ship will attack")
             attackUssHelloWorld(alienArray[0], ussHelloWorld);
         }
     } // Alien's ship acccuracy is higher than SS Hello world. 
-    else {
+    else if (ship1.accuracy < ship2.accuracy) {
         alert("You missed!");
         alert("Brace yourself, the alien ship will attack")
         attackUssHelloWorld(alienArray[0], ussHelloWorld);
@@ -120,10 +111,23 @@ console.log(ussHelloWorld);
 ship1=ussHelloWorld;
 ship2=alienArray[0];
 
+//lose when USS Hello World is 0
+function checkHull (){
+    if (ship1.hull<=0){
+        alert("your a loser!");
+    }
+}
+
+//Alien Battle Ship Attacks
+//Not sure why this isn't working
 function attackUssHelloWorld (ship2, ship1) {
     if (ship2.accuracy >= ship1.accuracy) {
         alert(`You've been hit! Your hull's points are at ${ship1.hull-=ship2.firepower}`);
+        if (ship1.hull<=0){
+            alert("You Loser")
+        } else {
         restartGame();
+        };
     //     if (helloWorldHull == true) {
     //    restartGame();
     //     } else {
@@ -143,9 +147,3 @@ function Start(){
 };
 
 startGame.addEventListener("click", Start);
-
-
-
-
-
-//when a ships go to 0, declaring a win for SS hello world
