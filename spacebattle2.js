@@ -1,9 +1,9 @@
 //Create SS Hello World Ship
 class UssHelloWorld {
     constructor (hull, firepower, accuracy) {
-        this.hull = 8,
+        this.hull = 20,
         this.firepower = 5,
-        this.accuracy = .4
+        this.accuracy = .7
     }
 };
 
@@ -21,8 +21,8 @@ class AlienShip {
 
 let alienArray = [];
 //for testing
-for(let i=0;i<3;i++)
-//for(let i=0;i<6;i++)
+//for(let i=0;i<3;i++)
+for(let i=0;i<6;i++)
 {
     let alienShips = new AlienShip;
     alienArray.push(alienShips);
