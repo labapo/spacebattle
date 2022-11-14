@@ -46,12 +46,15 @@ let startGame = document.getElementById("start-game");
 //     firepower: 4,
 //     accuracy: .6,
 // }
+
+
 function destroyedShip () {
     alert("Congrats! You destroyed the Alien Ship!");
     alienArray.shift();
+    alert(`You have ${alienArray.length} Alien ships to destroy to win the game.`)
     console.log(alienArray);
     if (alienArray.length===0){
-        alert("You win!");
+        alert("Congrats! You destroyed all the alien ships! You win!");
         return;
     }
 }
@@ -124,7 +127,7 @@ function attackUssHelloWorld (ship2, ship1) {
     if (ship2.accuracy >= ship1.accuracy) {
         alert(`You've been hit! Your hull's points are at ${ship1.hull-=ship2.firepower}`);
         if (ship1.hull<=0){
-            alert("You Loser")
+            alert("The Alien Ships have taken over. The USS Hello World has been destroyed. You lose!")
         } else {
         restartGame();
         };
